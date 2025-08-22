@@ -5,3 +5,5 @@ __pycache__/
 # Ignore virtual env
 venv/
 Essential8_scanner/venv/
+# macOS
+.DS_Store
