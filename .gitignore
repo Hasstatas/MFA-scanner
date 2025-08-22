@@ -1,0 +1,9 @@
+# Ignore Python caches
+__pycache__/
+*.pyc
+
+# Ignore virtual env
+venv/
+Essential8_scanner/venv/
+# macOS
+.DS_Store
