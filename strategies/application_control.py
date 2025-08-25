@@ -12,6 +12,14 @@ class ApplicationControl(Strategy):
     ENFORCE = ["enforce rules", "enforced", "rules are enforced"]
     BLOCK   = ["block", "blocked", "blocking", "deny", "denied", "disallowed", "disallow"]
 
+    # tighten the detection for the keyword "deny" with its variants 
+    BLOCK_REGEX = [
+        r"\bden[vy]\b",     # denv / deny
+        r"\b[dbqgo]eny\b",         # deny / beny / qeny / geny / oeny
+        r"\b[a-z]den[vy]\b",       # qdeny
+        r"\b[a-z][dbqgo]eny\b",    # qbeny 
+    ]
+
     # Regex to match all the file extensions
     EXT_PATTERNS_BY_LABEL = {
         "EXEC":   [r"\b[\w-]+\s*\.\s*(?:exe|com)\b", r"\b(?:exe|com)\b"],
@@ -29,7 +37,7 @@ class ApplicationControl(Strategy):
         "EXEC": ["executable rules", "executable files",
                  "block executable files", "block executable files from running"],
         "DLL":  ["dll rules", "software library files", "library rules"],
-        "SCRIPT": ["script rules", "script files", "obfuscated scripts"],
+        "SCRIPT": ["script rules", "script files", "obfuscated scripts", "block execution of potentially obfuscated scripts"],
         "INST": ["windows installer rules", "installer rules", "installer files"],
         "CHM":  ["compiled html files", "chm"],
         "HTA":  ["html application files", "hta"],
@@ -61,21 +69,6 @@ class ApplicationControl(Strategy):
          "CPL"),
     ]
 
-    # helper to scan the text 
-    @staticmethod
-    def _any_substr(text: str, phrases: list[str]) -> str | None:
-        for p in phrases:
-            if p in text:
-                return p
-        return None
-
-    @staticmethod
-    def _any_regex(text: str, patterns: list[str]) -> str | None:
-        for pat in patterns:
-            if re.search(pat, text):
-                return f"re:{pat}"
-        return None
-
     #scan the detected level from the test_id
     @staticmethod
     def _ml_level_from_test_id(test_id: str) -> int | None:
@@ -86,8 +79,9 @@ class ApplicationControl(Strategy):
     def emit_hits(self, raw_text: str):
         t = self.normalize(raw_text)
 
-        enforce_hit = self._any_substr(t, self.ENFORCE)
-        block_hit   = self._any_substr(t, self.BLOCK)
+        # avoids false positives like blocklist, unblocked etc.
+        enforce_hit = self._any_regex(t, [r"\benforc(?:e|ed|ing)\b", r"\brules are enforced\b", r"\benforce rules\b"])
+        block_hit   = self._any_regex(t, [r"\bblock(?:ed|ing)?\b"]) or self._any_regex(t, self.BLOCK_REGEX)
 
         rows = []
 
