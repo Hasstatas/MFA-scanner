@@ -25,13 +25,15 @@ def run_ocr(path: str) -> str:
 
 # main scanner 
 def main():
-    # step 1: load strategies from the folders
+    # step 1: request for User ID
+    user_id = input("Enter your username: ").strip() 
+    # step 2: load strategies from the folders
     strategies = load_strategies()
     if not strategies:
         print("No strategies found")
         return
 
-    # step 2: user to chooset the strategy with description to run 
+    # step 3: user to chooset the strategy with description to run 
     names_for_menu = [f"{s.name} — {s.description()}" for s in strategies]
     chosen_menu = choose_from_menu("\nAvailable strategies:", names_for_menu)
 
@@ -44,7 +46,7 @@ def main():
 
     print("\n📋 Scanning using strategies:", ", ".join(s.name for s in chosen_strategies), "\n")
 
-# step 3: scans all .png files in the screenshots folder - next step: to have option to select the screenshot instead of running all 
+    # step 4: scans all .png files in the screenshots folder - next step: to have option to select the screenshot instead of running all 
     screenshots_dir = Path("screenshots")
     if not screenshots_dir.exists():
         print("Please add your screenshots before proceeding")
@@ -57,10 +59,13 @@ def main():
         print("No files found in screenshots folder.")
         return
 
-    # step 4: Prepare report data
-    report_rows = [("Image", "Strategy", "Findings")]
+    # step 5: Prepare report fields
+    report_rows = [(
+        "UserID", "Image", "Strategy", "TestID", "Sub-Strategy",
+        "ML Level", "Pass/Fail", "Priority", "Recommendation", "Evidence Extract"
+    )]
 
-# step 5: OCR each image in the "screenshots" folder
+# step 6: OCR each image in the "screenshots" folder
     for file in image_files:
         print(f"🖼️  {file}:")
         img_path = screenshots_dir / file
@@ -69,10 +74,26 @@ def main():
         print("📝 OCR Text:", raw_text)  # Optional debug print
 
         for strat in chosen_strategies:
-            hits = strat.match(raw_text)  # uses strategy logic 
-            if hits:
-                print(f"🔍 Findings Detected ({strat.name}): {', '.join(hits)}")
-                report_rows.append((file, strat.name, ", ".join(hits)))
+            if hasattr(strat, "emit_hits"):
+                rows = strat.emit_hits(raw_text)  # list[dict]
+                for r in rows:
+                    report_rows.append((
+                        user_id,
+                        file,
+                        strat.name, #strategy name 
+                        r.get("test_id",""),
+                        r.get("sub_strategy",""),
+                        r.get("detected_level",""),
+                        r.get("pass_fail",""),
+                        r.get("priority",""),
+                        r.get("recommendation",""),
+                        "; ".join(r.get("evidence", [])),
+                    ))
+            else:
+                # contingency fallback if none detected
+                hits = strat.match(raw_text)
+                if hits:
+                    report_rows.append((user_id, file, strat.name, "", "", "", "", "", "", ", ".join(hits)))
 
     # Save CSV
     with open("scan_report.csv", "w", newline="") as f:
