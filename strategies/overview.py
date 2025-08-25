@@ -14,6 +14,20 @@ class Strategy(ABC):
             return ""
         return " ".join(text.lower().split())
 
+    # returns the first phrase as a substring in text 
+    def _any_substr(self, text: str, phrases: list[str]) -> str | None:
+        for p in phrases:
+            if p and p in text:
+                return p
+        return None
+
+    # returns the first regex pattern that matches 
+    def _any_regex(self, text: str, patterns: list[str]) -> str | None:
+        for pat in patterns:
+            if pat and re.search(pat, text):
+                return f"re:{pat}"
+        return None
+
     @abstractmethod
     def description(self) -> str:
         return "No description" # brief description of mitigation strategy - every child class msut provide their own description
