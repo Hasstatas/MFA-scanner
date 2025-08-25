@@ -10,8 +10,9 @@ class Strategy(ABC):
     exclude = []         # potential false positives
 
     def normalize(self, text: str) -> str:
-        t = text.lower() # all text to be converted to lowercases 
-        return t
+        if text is None:
+            return ""
+        return " ".join(text.lower().split())
 
     @abstractmethod
     def description(self) -> str:
@@ -41,3 +42,18 @@ class Strategy(ABC):
 
         # return the list of matched 
         return hits
+
+    # standardised report fields
+    def emit_hits(self, raw_text: str):
+        rows = []
+        for s in self.match(raw_text):
+            rows.append({
+                "test_id": "",
+                "sub_strategy": "",
+                "detected_level": "",
+                "pass_fail": "",
+                "priority": "",
+                "recommendation": "",
+                "evidence": [s],
+            })
+        return rows
