@@ -7,8 +7,10 @@ import pytesseract
 from pytesseract import TesseractNotFoundError
 from PIL import Image, UnidentifiedImageError
 
-# Optional but highly recommended for better OCR
-# pip install opencv-python
+# If PATH sometimes fails, uncomment and set your path explicitly:
+# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
+# Optional but recommended for better OCR
 try:
     import cv2
     _HAS_CV2 = True
@@ -51,15 +53,12 @@ def _ocr_with_pillow(path: Path) -> str:
     """Plain PIL -> pytesseract (fallback)."""
     try:
         with Image.open(path) as img:
-            return pytesseract.image_to_string(img)
+            return pytesseract.image_to_string(img, config="--psm 6")
     except (UnidentifiedImageError, OSError, TesseractNotFoundError):
         return ""
 
 def _ocr_with_cv2(path: Path) -> str:
-    """
-    OpenCV pre-processing to make UI screenshots readable:
-    grayscale -> contrast boost -> binarize -> OCR.
-    """
+    """OpenCV preprocessing for clearer OCR."""
     if not _HAS_CV2:
         return _ocr_with_pillow(path)
 
@@ -68,15 +67,22 @@ def _ocr_with_cv2(path: Path) -> str:
         if img is None:
             return ""
 
+        # Grayscale
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        # contrast / brightness tweak
-        gray = cv2.convertScaleAbs(gray, alpha=1.6, beta=10)
-        # adaptive threshold for varied backgrounds
+
+        # Upscale a bit to help OCR on UI screenshots
+        gray = cv2.resize(gray, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_CUBIC)
+
+        # Boost contrast/brightness
+        gray = cv2.convertScaleAbs(gray, alpha=2.0, beta=15)
+
+        # Binarize adaptively to handle uneven backgrounds
         thr = cv2.adaptiveThreshold(
             gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
             cv2.THRESH_BINARY, 35, 11
         )
-        return pytesseract.image_to_string(thr)
+
+        return pytesseract.image_to_string(thr, config="--psm 6")
     except TesseractNotFoundError:
         return ""
     except Exception:
@@ -111,13 +117,15 @@ def extract_text(path: Path) -> str:
     return ""  # unsupported
 
 def list_supported_files(folder: Path) -> List[Path]:
+    """Recursively gather supported files under folder."""
     if not folder.exists():
         return []
     out = []
-    for p in folder.iterdir():
+    for p in folder.rglob("*"):  # RECURSIVE now
         if not p.is_file():
             continue
-        if p.suffix.lower() in SUPPORTED_IMAGE_EXTS or p.suffix.lower() in SUPPORTED_TEXT_EXTS:
+        ext = p.suffix.lower()
+        if ext in SUPPORTED_IMAGE_EXTS or ext in SUPPORTED_TEXT_EXTS:
             out.append(p)
     return sorted(out, key=lambda x: x.name.lower())
 
@@ -146,6 +154,7 @@ def main():
     print("\n📋 Scanning using strategies:", ", ".join(s.name for s in chosen_strategies), "\n")
 
     # 4) where screenshots/files live
+    # Put files in: screenshots/<mapped_subdir>/...
     base_dir = Path("screenshots")
 
     # 5) CSV header
@@ -180,13 +189,21 @@ def main():
 
             if not raw_text.strip():
                 print("   (no readable text found)\n")
+                # record a row so you see the file in the CSV
+                report_rows.append((
+                    user_id, fpath.name, strat.name, "", "", "",
+                    "NO_TEXT", "Low",
+                    "OCR could not read this file. Try a clearer screenshot.",
+                    ""
+                ))
                 continue
 
             preview = (raw_text[:200] + "…") if len(raw_text) > 200 else raw_text
             print("📝 Extracted:", preview.replace("\n", " ")[:200], "\n")
 
+            rows_added = 0  # track whether any hits were written
+
             if hasattr(strat, "emit_hits"):
-                # pass filename for ML1-OM-02 comparison + evidence
                 rows = strat.emit_hits(raw_text, source_file=fpath.name)
                 for r in rows:
                     report_rows.append((
@@ -201,13 +218,26 @@ def main():
                         r.get("recommendation", ""),
                         "; ".join(r.get("evidence", [])),
                     ))
+                    rows_added += 1
             else:
-                # fallback if a strategy only provides .match()
                 hits = strat.match(raw_text)
                 if hits:
                     report_rows.append((
-                        user_id, fpath.name, strat.name, "", "", "", "", "", "", ", ".join(hits)
+                        user_id, fpath.name, strat.name, "", "", "",
+                        "HIT", "Medium",
+                        "Heuristic match.",
+                        ", ".join(hits)
                     ))
+                    rows_added += 1
+
+            # If no matches, write a NO_MATCH row so the file appears in the report
+            if rows_added == 0:
+                report_rows.append((
+                    user_id, fpath.name, strat.name, "", "", "",
+                    "NO_MATCH", "Low",
+                    "No rule matched this file.",
+                    ""
+                ))
 
     # 7) save
     try:

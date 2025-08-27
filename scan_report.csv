@@ -1,1 +1,8 @@
 UserID,Image,Strategy,TestID,Sub-Strategy,ML Level,Pass/Fail,Priority,Recommendation,Evidence Extract
+bharadwaj,ad_group.txt,Configure Microsoft Office Macro Settings,,,,NO_MATCH,Low,No rule matched this file.,
+bharadwaj,approved_users.txt,Configure Microsoft Office Macro Settings,ML1-OM-02,Approved users list matches AD group,ML1,PASS,Medium,Approved repository and AD security group are in sync.,approved_users.txt + ad_group.txt
+bharadwaj,macro settings.png,Configure Microsoft Office Macro Settings,ML1-OM-01,Disable for unapproved users,ML1,PASS,High,Enforce 'Disable all macros without notification' via GPO.,Trusted Publishers Macro Settings Trusted Locations Disable all macros without notification Trusted Documents © Disable all macros with notification Trusted Add-in Catalogs ; . ; D…
+bharadwaj,macros-blocked-internet.jpg,Configure Microsoft Office Macro Settings,,,,NO_MATCH,Low,No rule matched this file.,
+bharadwaj,microsoft-has-blocked-macros-from-running.jpg,Configure Microsoft Office Macro Settings,,,,NO_MATCH,Low,No rule matched this file.,
+bharadwaj,Office_macros_security_alert.png,Configure Microsoft Office Macro Settings,,,,NO_MATCH,Low,No rule matched this file.,
+bharadwaj,unblock-file.jpg,Configure Microsoft Office Macro Settings,,,,NO_MATCH,Low,No rule matched this file.,
