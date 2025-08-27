@@ -4,7 +4,16 @@ import csv
 from pathlib import Path
 from typing import List
 import pytesseract
+from pytesseract import TesseractNotFoundError
 from PIL import Image, UnidentifiedImageError
+
+# Optional but highly recommended for better OCR
+# pip install opencv-python
+try:
+    import cv2
+    _HAS_CV2 = True
+except Exception:
+    _HAS_CV2 = False
 
 from strategies import load_strategies  # your plugin loader
 
@@ -37,15 +46,51 @@ def choose_from_menu(title: str, options: List[str]) -> List[str]:
             idxs.append(int(tok) - 1)
     return [options[i] for i in idxs]
 
-# ---------- Content extraction ----------
-def run_ocr(path: Path) -> str:
-    """OCR image -> text (safe)."""
+# ---------- OCR helpers ----------
+def _ocr_with_pillow(path: Path) -> str:
+    """Plain PIL -> pytesseract (fallback)."""
     try:
         with Image.open(path) as img:
             return pytesseract.image_to_string(img)
-    except (UnidentifiedImageError, OSError):
+    except (UnidentifiedImageError, OSError, TesseractNotFoundError):
         return ""
 
+def _ocr_with_cv2(path: Path) -> str:
+    """
+    OpenCV pre-processing to make UI screenshots readable:
+    grayscale -> contrast boost -> binarize -> OCR.
+    """
+    if not _HAS_CV2:
+        return _ocr_with_pillow(path)
+
+    try:
+        img = cv2.imread(str(path), cv2.IMREAD_COLOR)
+        if img is None:
+            return ""
+
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        # contrast / brightness tweak
+        gray = cv2.convertScaleAbs(gray, alpha=1.6, beta=10)
+        # adaptive threshold for varied backgrounds
+        thr = cv2.adaptiveThreshold(
+            gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+            cv2.THRESH_BINARY, 35, 11
+        )
+        return pytesseract.image_to_string(thr)
+    except TesseractNotFoundError:
+        return ""
+    except Exception:
+        # Last-ditch fallback
+        return _ocr_with_pillow(path)
+
+def run_ocr(path: Path) -> str:
+    """Try OpenCV pre-processing first, then fallback to plain OCR."""
+    text = _ocr_with_cv2(path)
+    if text and text.strip():
+        return text
+    return _ocr_with_pillow(path)
+
+# ---------- Content extraction ----------
 def read_text_file(path: Path) -> str:
     """Read small text-like files into a single string."""
     try:
@@ -132,6 +177,7 @@ def main():
         for fpath in files:
             print(f"📄 {fpath.name}:")
             raw_text = extract_text(fpath)
+
             if not raw_text.strip():
                 print("   (no readable text found)\n")
                 continue
@@ -140,8 +186,8 @@ def main():
             print("📝 Extracted:", preview.replace("\n", " ")[:200], "\n")
 
             if hasattr(strat, "emit_hits"):
-                # ✅ pass filename for ML1-OM-02 comparison
-                rows = strat.emit_hits(raw_text, source_file=fpath.name)  # <— updated
+                # pass filename for ML1-OM-02 comparison + evidence
+                rows = strat.emit_hits(raw_text, source_file=fpath.name)
                 for r in rows:
                     report_rows.append((
                         user_id,
@@ -177,4 +223,10 @@ def main():
         print(f"\n⚠️  'scan_report.csv' was locked. Saved as: {temp_name}")
 
 if __name__ == "__main__":
+    # Helpful check: print tesseract path/version once
+    try:
+        ver = pytesseract.get_tesseract_version()
+        print(f"(i) Tesseract found: {ver}")
+    except Exception:
+        print("(i) Tesseract not detected by pytesseract. Ensure the Tesseract OCR engine is installed and on PATH.")
     main()

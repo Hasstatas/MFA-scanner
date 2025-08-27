@@ -4,7 +4,6 @@ import re
 from typing import List, Dict, Optional
 from .overview import Strategy
 
-
 class ConfigureMicrosoftOfficeMacroSettings(Strategy):
     """
     Essential Eight - Macro settings (ML1-OM-01 .. ML1-OM-07)
@@ -190,4 +189,3 @@ class ConfigureMicrosoftOfficeMacroSettings(Strategy):
             ))
 
         return rows
-    
