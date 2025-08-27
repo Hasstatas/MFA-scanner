@@ -190,3 +190,4 @@ class ConfigureMicrosoftOfficeMacroSettings(Strategy):
             ))
 
         return rows
+    

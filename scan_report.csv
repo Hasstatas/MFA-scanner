@@ -1,1 +1,2 @@
 UserID,Image,Strategy,TestID,Sub-Strategy,ML Level,Pass/Fail,Priority,Recommendation,Evidence Extract
+bb,approved_users.txt,Configure Microsoft Office Macro Settings,ML1-OM-02,Approved users list matches AD group,ML1,PASS,Medium,Approved repository and AD security group are in sync.,approved_users.txt + ad_group.txt
