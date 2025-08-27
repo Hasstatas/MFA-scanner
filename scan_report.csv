@@ -1,1 +1,10 @@
 UserID,Image,Strategy,TestID,Sub-Strategy,ML Level,Pass/Fail,Priority,Recommendation,Evidence Extract
+bharat,Capture3 Unrelated.PNG,Configure Microsoft Office Macro Settings,ML1-OM-01,Disable all macros without notification,ML1,FAIL,High,Ensure macros are disabled by default without user prompts.,
+bharat,Capture3 Unrelated.PNG,Configure Microsoft Office Macro Settings,ML1-OM-04,Block VBA macros from the internet,ML1,FAIL,High,Enable Group Policy to block macros from internet sources.,
+bharat,Capture4 AppLocker Properties.png,Configure Microsoft Office Macro Settings,ML1-OM-01,Disable all macros without notification,ML1,FAIL,High,Ensure macros are disabled by default without user prompts.,
+bharat,Capture4 AppLocker Properties.png,Configure Microsoft Office Macro Settings,ML1-OM-04,Block VBA macros from the internet,ML1,FAIL,High,Enable Group Policy to block macros from internet sources.,
+bharat,Capture5 Microsoft Endpoint Security Block EXE 01.jpeg,Configure Microsoft Office Macro Settings,ML1-OM-01,Disable all macros without notification,ML1,FAIL,High,Ensure macros are disabled by default without user prompts.,
+bharat,Capture5 Microsoft Endpoint Security Block EXE 01.jpeg,Configure Microsoft Office Macro Settings,ML1-OM-04,Block VBA macros from the internet,ML1,FAIL,High,Enable Group Policy to block macros from internet sources.,
+bharat,Capture6 Windows Application Locker Configuration.png,Configure Microsoft Office Macro Settings,ML1-OM-01,Disable all macros without notification,ML1,FAIL,High,Ensure macros are disabled by default without user prompts.,
+bharat,Capture6 Windows Application Locker Configuration.png,Configure Microsoft Office Macro Settings,ML1-OM-04,Block VBA macros from the internet,ML1,FAIL,High,Enable Group Policy to block macros from internet sources.,
+bharat,Capture6 Windows Application Locker Configuration.png,Configure Microsoft Office Macro Settings,ML1-OM-05,Macros managed via Group Policy,ML1,PASS,High,Keep macros locked down with Group Policy.,Managed by Group Policy
