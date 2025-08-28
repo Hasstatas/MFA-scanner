@@ -3,3 +3,8 @@ pillow
 opencv-python
 python-dotenv
 tabulate
+python-docx
+docx2pdf
+pytesseract
+Pillow
+pymupdf
