@@ -58,11 +58,21 @@ git branch
 
 **Step 3**: Once the development has been completed, commit the changes with a concise and clear description on what has been changed i.e. whathaschanged in the example:
 
+- Adding all the changes: 
 ```
-Adding all the changes: git add . 
-or if you prefer only the specific file: git add nameoffile
-Committing the changes with description: git commit -m "whathaschanged"
-Pushing to the branch: git push origin nameofbranch
+git add . 
+```
+- Or if you prefer only the specific file: 
+```
+git add nameoffile
+```
+- Committing the changes with description: 
+```
+git commit -m "whathaschanged"
+```
+- Pushing to the branch: 
+```
+git push origin nameofbranch
 ```
 
 ## 🔃 Pull Request
