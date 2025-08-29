@@ -1,8 +1,77 @@
 UserID,Image,Strategy,TestID,Sub-Strategy,ML Level,Pass/Fail,Priority,Recommendation,Evidence Extract
-bharadwaj,ad_group.txt,Configure Microsoft Office Macro Settings,,,,NO_MATCH,Low,No rule matched this file.,
-bharadwaj,approved_users.txt,Configure Microsoft Office Macro Settings,ML1-OM-02,Approved users list matches AD group,ML1,PASS,Medium,Approved repository and AD security group are in sync.,approved_users.txt + ad_group.txt
-bharadwaj,macro settings.png,Configure Microsoft Office Macro Settings,ML1-OM-01,Disable for unapproved users,ML1,PASS,High,Enforce 'Disable all macros without notification' via GPO.,Trusted Publishers Macro Settings Trusted Locations Disable all macros without notification Trusted Documents © Disable all macros with notification Trusted Add-in Catalogs ; . ; D…
-bharadwaj,macros-blocked-internet.jpg,Configure Microsoft Office Macro Settings,,,,NO_MATCH,Low,No rule matched this file.,
-bharadwaj,microsoft-has-blocked-macros-from-running.jpg,Configure Microsoft Office Macro Settings,,,,NO_MATCH,Low,No rule matched this file.,
-bharadwaj,Office_macros_security_alert.png,Configure Microsoft Office Macro Settings,,,,NO_MATCH,Low,No rule matched this file.,
-bharadwaj,unblock-file.jpg,Configure Microsoft Office Macro Settings,,,,NO_MATCH,Low,No rule matched this file.,
+Camille,ad_group.txt,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
+Camille,approved_users.txt,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
+Camille,macro settings.png,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
+Camille,macros-blocked-internet.jpg,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
+Camille,microsoft-has-blocked-macros-from-running.jpg,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
+Camille,Office_macros_security_alert.png,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
+Camille,Screenshot0 Unrelated.PNG,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
+Camille,Screenshot1 AC-01 03 04.png,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
+Camille,Screenshot2 AC-02.webp,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
+Camille,Screenshot3 AC-01.jpeg,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
+Camille,Screenshot4 RPA RB=01.png,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
+Camille,Screenshot5 RPA RB-02.webp,Restrict Admin Privileges,ML1-RA-03,Privileged accounts are not configured with mailboxes and email addresses,1,Pass,Medium,(1) Remove mailboxes from privileged accounts (2) Review privileged account regularly to confirm no mailbox/email licenses are assigned,access denied; re:\bden(?:y|ied)\b
+Camille,Screenshot5 RPA RB-02.webp,Restrict Admin Privileges,ML1-RA-05,Unprivileged accounts must not be able to logon to systems in the privileged environment,1,Pass,Medium,Configure GPO to deny logon for unprivileged accounts on servers/admin systems (2) Audit AD groups with RDP access and restrict membership,access denied; re:\bden(?:y|ied)\b
+Camille,Screenshot6 RPA RB-06.png,Restrict Admin Privileges,ML1-RA-02,Privileged accounts cannot access the Internet,1,Pass,High,(1) Configure Group Policy Objects (GPO) / firewall to block privileged accounts from internet browsing (2) Enforce technical controls (proxy/firewall) to prevent privileged accounts from bypassing restrictions (3) Regularly review policies,firewall; re:\bworkflow\b
+Camille,Screenshot6 RPA RB-06.png,Restrict Admin Privileges,ML1-RA-06,Unprivileged user prevented from using the PowerShell remote PSRemote windows feature,1,Pass,Medium,Remove unprivileged accounts from “Remote Management Users,accessdenied; re:\bworkflow\b
+Camille,unblock-file.jpg,Restrict Admin Privileges,ML1-RA-01 to ML1-RA-08,,1,Fail,High,"- Enforce a formal, documented approval workflow for privileged access (ticket, justification, approver).
+- Maintain an inventory of systems/applications requiring privileged access.
+- Prevent privileged accounts from Internet access and from being used on standard desktops.
+- Remove mailboxes from privileged accounts.
+- Deny unprivileged logons to admin systems and prevent privilege escalation (UAC, remove runas paths).
+- Restrict PowerShell Remoting to admins; keep WinRM appropriately configured.",
