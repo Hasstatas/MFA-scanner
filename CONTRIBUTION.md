@@ -1,12 +1,12 @@
-# Security Assessment and Vulnerability Detection Team GitHub Workflow Guide (Last updated on 29 Aug)
+# 🛡️ Security Assessment and Vulnerability Detection Team GitHub Workflow Guide (Last updated on 29 Aug)
 This guide will provide you with the steps to get started to contribute to the Evidence Collector and Validator scanner as a team
 
-## Repository Model
+## 📂 Repository Model
 - Default branch: `main`
 - day-to-work work: respective feature branches from `main`  
 - all changes have to submitted via Pull Requests 
 
-## Getting Started
+## 🚀 Getting Started
 **Step 1**: Fork the repository to your own GitHub account from: https://github.com/Hardhat-Enterprises/AutoAudit-Security
 - Click Fork >> Create a new fork
 
@@ -25,7 +25,7 @@ git remote add upstream https://github.com/Hardhat-Enterprises/AutoAudit-Securit
 git fetch upstream
 ```
 
-## Working on a New Feature
+## 🛠️ Working on a New Feature
 **Step 1**: Remember to create your new task on the planner before proceeding
 
 **Step 2**: When starting on a new task, always create a new dedicated branch. This is to ensure multiple members are able to work on their tasks concurrently without affecting the overall codebase. It is ideal for the name of the branch to be related to the task e.g. task: developing application control detection logic, the branch name shall be applicationcontrol. The steps to take to create a new branch can be found below with nameofbranch being the proposed branch name:
@@ -51,7 +51,7 @@ Committing the changes with description: git commit -m "whathaschanged"
 Pushing to the branch: git push origin nameofbranch
 ```
 
-## Pull Request
+## 🔃 Pull Request
 Once the task has been completed, create a pull request on GitHub to ensure that the code is aligned with the overall tool with the following steps:
 
 **Step 1**: Sync the local branch with upstream main to ensure that your branch is up to date with the latest changes from any other team members: 
@@ -74,7 +74,7 @@ git push origin nameofbranch
 - Title: Aligned to your planner’s title with PR serial (i.e. PR-SXX >> for example the first PR of the Security team will be PR-S01)
 - Description should be about the changes made with ideally a screenshot or video to show what has been done – this will be useful for the code reviewer to understand the changes (and definitely useful as part of your evidence for OnTrack submission when you share the pull request link)
 
-# Post-PR Merge or Mid-way Work
+# 🧩 Post-PR Merge or Mid-way Work
 
 - Always make sure your local dev branch is updated to the latest changes before any development:
 ```
@@ -88,5 +88,4 @@ git checkout nameofbranch
 git rebase main
 ```
 
-
-
+For more visual notes: visit the document guide on https://deakin365.sharepoint.com/:b:/r/sites/HardhatEnterprises2/Shared%20Documents/%F0%9F%94%92%20AutoAudit/T2%202025/Documents/Security%20Assessment%20%26%20Vulnerability%20Team/AutoAudit%20-%20Security%20Team%20GitHub%20Repo%20Workflow%20Guide.pdf?csf=1&web=1&e=hModS7
