@@ -17,7 +17,10 @@ git clone https://github.com/<yourgithubusername>/AutoAudit-Security.git
 ```
 - Option 2: Click “Command Palette” >> type “Git: Clone” >> insert your repository (please note to change to your own github username): https://github.com/<yourgithubusername>/AutoAudit-Security.git
 
-Remember to access to your cloned repository before doing anything else: `cd AutoAudit-Security`
+Remember to access to your cloned repository before doing anything else: 
+```
+cd AutoAudit-Security
+```
 
 **Step 3**: Set the original repo as upstream i.e. this is to ensure that it can be easily synced to the repository using the terminal:
 ```
@@ -30,16 +33,27 @@ git fetch upstream
 
 **Step 2**: When starting on a new task, always create a new dedicated branch. This is to ensure multiple members are able to work on their tasks concurrently without affecting the overall codebase. It is ideal for the name of the branch to be related to the task e.g. task: developing application control detection logic, the branch name shall be applicationcontrol. The steps to take to create a new branch can be found below with nameofbranch being the proposed branch name:
 
+- Good practice to check the branch you are on which should be main branch: 
 ```
-- Good practice to check the branch you are on which should be `main` branch: git branch
-- If not on the `main` branch, switch to it: git checkout main
+git branch
+```
+- If not on the main branch, switch to it: 
+```
+git checkout main
+```
 - Sync your local develop branch with the latest changes: 
+```
 git fetch upstream
 git pull --rebase upstream main
 git push
+```
 - Create new git branch and switch to the new branch:
+```
 git checkout -b nameofbranch
-- Good practice to check the branch and confirm that you are on the newly created one (it should be highlighted in green): git branch
+```
+- Good practice to check the branch and confirm that you are on the newly created one (it should be highlighted in green): 
+```
+git branch
 ```
 
 **Step 3**: Once the development has been completed, commit the changes with a concise and clear description on what has been changed i.e. whathaschanged in the example:
