@@ -1,4 +1,4 @@
-# 🛡️ Security Assessment and Vulnerability Detection Team GitHub Workflow Guide (Last updated on 29 Aug)
+# 🛡️ Security Assessment and Vulnerability Detection Team GitHub Workflow Guide (Last updated on 2 Sept)
 This guide will provide you with the steps to get started to contribute to the Evidence Collector and Validator scanner as a team
 
 ## 📂 Repository Model
@@ -112,4 +112,4 @@ git checkout nameofbranch
 git rebase main
 ```
 
-For more visual notes: visit the document guide on https://deakin365.sharepoint.com/:b:/r/sites/HardhatEnterprises2/Shared%20Documents/%F0%9F%94%92%20AutoAudit/T2%202025/Documents/Security%20Assessment%20%26%20Vulnerability%20Team/AutoAudit%20-%20Security%20Team%20GitHub%20Repo%20Workflow%20Guide.pdf?csf=1&web=1&e=jfJGAE
+For more visual notes: visit the document guide on https://deakin365.sharepoint.com/:b:/r/sites/HardhatEnterprises2/Shared%20Documents/%F0%9F%94%92%20AutoAudit/T2%202025/Documents/Security%20Assessment%20%26%20Vulnerability%20Team/AutoAudit%20-%20Security%20Team%20GitHub%20Repo%20Workflow%20Guide.pdf?csf=1&web=1&e=jfJGAE 
