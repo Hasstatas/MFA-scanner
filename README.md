@@ -1,4 +1,4 @@
-# Essential8_scanner
+# Evidence Collector and Validator
 
 OCR-based misconfiguration scanner for EC&V (Essential Eight & Compliance & Verification).
 
