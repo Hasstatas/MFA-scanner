@@ -76,7 +76,7 @@ class ApplicationControl(Strategy):
         return int(m.group(1)) if m else None
 
     # main detection logic 
-    def emit_hits(self, raw_text: str):
+    def emit_hits(self, raw_text: str, source_file: str = "", **kwargs):
         t = self.normalize(raw_text)
 
         # avoids false positives like blocklist, unblocked etc.
