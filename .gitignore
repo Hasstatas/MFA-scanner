@@ -22,3 +22,9 @@ previews/
 .idea/
 
 
+
+web/venv/
+.previews/
+reports_out/
+scan_report.csv
+*.local.bak
