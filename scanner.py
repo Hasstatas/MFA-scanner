@@ -150,7 +150,7 @@ def main():
         print("Not a valid selection. Exiting the application.")
         return
 
-    print("\n📋 Scanning using strategies:", ", ".join(s.name for s in chosen_strategies), "\n")
+    print("\n Scanning using strategies:", ", ".join(s.name for s in chosen_strategies), "\n")
 
     # 4) where evidence/files live
     # Put files in: evidence/<mapped_subdir>/...
@@ -176,14 +176,14 @@ def main():
             using_dir = fallback
 
         if not files:
-            print(f"⚠️  No files found for '{strat.name}' in '{preferred}' or '{fallback}'. Skipping.")
+            print(f"  No files found for '{strat.name}' in '{preferred}' or '{fallback}'. Skipping.")
             continue
 
         print(f"\n🔎 Strategy: {strat.name}")
         print(f"   Using inputs from: {using_dir}")
 
         for fpath in files:
-            print(f"📄 {fpath.name}:")
+            print(f" {fpath.name}:")
             raw_text = extract_text(fpath)
 
             if not raw_text.strip():
@@ -243,13 +243,13 @@ def main():
         with open("scan_report.csv", "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerows(report_rows)
-        print("\n✅ Report saved as: scan_report.csv")
+        print("\n Report saved as: scan_report.csv")
     except PermissionError:
         temp_name = "scan_report_temp.csv"
         with open(temp_name, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerows(report_rows)
-        print(f"\n⚠️  'scan_report.csv' was locked. Saved as: {temp_name}")
+        print(f"\n  'scan_report.csv' was locked. Saved as: {temp_name}")
 
 if __name__ == "__main__":
     # Helpful check: print tesseract path/version once
