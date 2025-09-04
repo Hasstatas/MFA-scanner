@@ -8,14 +8,14 @@ This tool scans screenshots of system settings (e.g., Windows Features) and dete
 
 ## How It Works
 
-- 📸 You provide screenshots (most image format e.g. PNG, JPG) of system configurations.
-- 🧠 The script uses **Tesseract OCR** to extract visible text.
-- 🛡️ It checks for misconfiguration indicators using keyword rules for each strategy.
-- 📄 Outputs findings into a CSV report: `scan_report.csv`.
+- You provide screenshots (most image format e.g. PNG, JPG) of system configurations.
+- The script uses **Tesseract OCR** to extract visible text.
+- It checks for misconfiguration indicators using keyword rules for each strategy.
+- Outputs findings into a CSV report: `scan_report.csv`.
 
 ---
 
-## 🧪 Strategies Supported
+## Strategies Supported
 
 1. Application Control 
 2. Patch Applications 
@@ -28,7 +28,7 @@ This tool scans screenshots of system settings (e.g., Windows Features) and dete
 
 ---
 
-## 📁 Folder Structure
+## Folder Structure
 
 essential8_scanner/
 ├── screenshots/ # Place your PNG screenshots here
