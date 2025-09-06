@@ -12,7 +12,6 @@ scan_report.csv
 results /  
 reports_out/
 previews/
-templates/
 
 # macOS
 .DS_Store
