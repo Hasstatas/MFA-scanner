@@ -6,6 +6,3 @@ tabulate
 python-docx
 docx2pdf
 pymupdf
-python-multipart
-uvicorn[standard]
-fastapi

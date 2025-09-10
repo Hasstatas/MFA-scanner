@@ -102,6 +102,7 @@ OUT_DIR = ROOT / "reports_out"
 PREVIEWS = ROOT / "previews"
 INDEX_HTML = ROOT / "aa_ui" / "ui.html"  # <-- serve ui.html
 
+
 @app.get("/", response_class=HTMLResponse)
 def index():
     if INDEX_HTML.exists():
